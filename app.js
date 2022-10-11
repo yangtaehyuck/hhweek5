@@ -230,19 +230,12 @@ router.delete("/posts/:postId",authMiddleware, async (req, res) => {
 router.post("/comments",authMiddleware,async (req, res) => {
   const { comment } = req.body
   const { userId, nickname } = res.locals.user
+  if (comment === "") {
+    res.send({result:"message : 댓글 내용을 입력해주세요."})
+  } else {
   await comments.create({userId, nickname, comment })
-  // const existsposts = await posts.findAll({
-  //   where: {
-  //     title
-  //   }
-  // });
-  // console.log(existsposts)
-  // if (existsposts===title) {
-  //   res.send({result:"message : 게시글이 이미 존재합니다."})
-  // }else {
-    
-  // }
-  res.send({result:"message : 게시글 작성에 성공하였습니다."})
+  res.send({result:"message : 댓글 작성에 성공하였습니다."})
+  }
 
   
 })
@@ -258,18 +251,31 @@ router.get("/comments",async (req, res) => {
 router.put("/comments/:commentId",authMiddleware, async (req, res) => {
   const {commentId} = req.params
   const {comment} = req.body
-  await comments.update({comment}, {where: {commentId}})
+  const { userId } = res.locals.user
+  const find = await comments.findOne({where:{userId}})
+
+  if (userId === find){
+    await comments.update({comment}, {where: {commentId}})
+    res.send({result:"message : 댓글을 수정하였습니다."})
+  }else {
+    res.send({result:"message : 이 댓글의 작성자가 아닙니다."})
+  }
   
-  res.send({result:"message : 게시글을 수정하였습니다."})
+
 })
 //게시글 삭제
 router.delete("/comments/:commentId",authMiddleware, async (req, res) => {
   const {commentId} = req.params
+  const { userId } = res.locals.user
+  const find = await comments.findOne({where:{userId}})
+  if (userId === find){
   await comments.destroy({
     where: {commentId}
   });
-
-  res.send({result:"message : 게시글을 삭제하였습니다."})
+    res.send({result:"message : 댓글을 삭제하였습니다."})
+  } else {
+    res.send({result:"message : 이 댓글의 작성자가 아닙니다."})
+  }
 })
 
 //좋아요 게시글 조회 자신이 좋아요를 누른 게시글 가져오기 userId
