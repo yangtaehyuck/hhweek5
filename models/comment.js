@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.INTEGER
     },
+    postId: DataTypes.INTEGER,
     userId: DataTypes.INTEGER,
     nickname: DataTypes.STRING,
     comment: DataTypes.STRING

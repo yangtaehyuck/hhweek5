@@ -10,13 +10,16 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       postId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        unique: true
       },
       userId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        unique: true
       },
       nickname: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        unique: true
       },
       title: {
         type: Sequelize.STRING

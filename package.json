@@ -1,7 +1,6 @@
 {
   "name": "nodejs-plus-shopping",
   "version": "1.0.0",
-  "description": "",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,7 +8,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.1",
+    "config": "^3.3.8",
+    "express": "^4.18.2",
+    "init": "^0.1.2",
     "joi": "^17.6.2",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.6.5",
@@ -18,5 +19,15 @@
   },
   "devDependencies": {
     "sequelize-cli": "^6.5.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yangtaehyuck/nodejs-homework00.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/yangtaehyuck/nodejs-homework00/issues"
+  },
+  "homepage": "https://github.com/yangtaehyuck/nodejs-homework00#readme",
+  "description": ""
 }

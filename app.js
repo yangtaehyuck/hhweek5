@@ -227,23 +227,23 @@ router.delete("/posts/:postId",authMiddleware, async (req, res) => {
 
 
 //댓글 생성
-router.post("/comments",authMiddleware,async (req, res) => {
+router.post("/comments/:postId",authMiddleware,async (req, res) => {
+  const {postId} = req.params
   const { comment } = req.body
   const { userId, nickname } = res.locals.user
   if (comment === "") {
     res.send({result:"message : 댓글 내용을 입력해주세요."})
   } else {
-  await comments.create({userId, nickname, comment })
+  await comments.create({userId, nickname, comment, postId })
   res.send({result:"message : 댓글 작성에 성공하였습니다."})
   }
 
   
 })
 //댓글 조회
-router.get("/comments",async (req, res) => {
-  const commentall = await comments.findAll({order: [['createdAt', 'DESC']]})
-  
-
+router.get("/comments/:postId",async (req, res) => {
+  const {postId} = req.params
+  const commentall = await comments.findAll({where: {postId}},{order: [['createdAt', 'DESC']]},{attributes : {exclude: ['content']}})
   res.json({"data":commentall})
 })
 

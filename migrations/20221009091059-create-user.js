@@ -13,10 +13,11 @@ module.exports = {
         type: Sequelize.STRING
       },
       nickname: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        unique: true          // 해당 사용자의 닉네임은 고유해야한다.  중복된 닉네임 가질수없음
       },
       createdAt: {
-        allowNull: false,
+        allowNull: false,    // 해당하는 컬럼은 무조건 존재해야한다.
         type: Sequelize.DATE
       },
       updatedAt: {
