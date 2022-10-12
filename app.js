@@ -323,7 +323,7 @@ if (youlikes===true && uselikes === null ) {
         res.send({result:"message : 이 게시글이 싫어요."})
 }
 })
-
+console.log("yangyagn")
 app.listen(8080, () => {
   console.log("서버가 요청을 받을 준비가 됐어요");
 });
