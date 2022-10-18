@@ -14,11 +14,9 @@ module.exports = {
       },
       userId: {
         type: Sequelize.INTEGER,
-        unique: true
       },
       nickname: {
         type: Sequelize.STRING,
-        unique: true
       },
       title: {
         type: Sequelize.STRING

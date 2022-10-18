@@ -15,11 +15,11 @@ module.exports = {
       },
       userId: {
         type: Sequelize.INTEGER,
-        unique: true
+
       },
       nickname: {
         type: Sequelize.STRING,
-        unique: true
+
       },
       comment: {
         type: Sequelize.STRING
