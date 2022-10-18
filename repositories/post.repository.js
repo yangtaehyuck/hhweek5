@@ -3,10 +3,13 @@ const { posts } = require("../models");
 class PostRepository {
   //게시글 목록 조회
   findAllPost = async () => {
-    const post = await posts.findAll();
-
+    const post = await posts.findAll(
+      {attributes : {exclude: ['content']},
+      order: [['createdAt', 'DESC']],
+    });
     return post;
   };
+
 
   //게시글 상세 조회
   findPostById = async (postId) => {
