@@ -31,7 +31,7 @@ class CommentController {
     const { commentId } = req.params;
     const userId = res.locals.user.userId;
     if (comment === "") {
-      res.json({ message: "댓글 내용을 입력해주세요" });
+      res.json({ message: "댓글 내용을 입력해주세요, 줘패기 전에." });
     } else {
       const updateCommentDate = await this.commentService.updateCmt(
         comment,
