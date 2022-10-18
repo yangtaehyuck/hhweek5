@@ -5,11 +5,7 @@ class PostService {
 
   //게시글 목록
   findAllPost = async () => {
-    const allPost = await this.postRepository.findAllPost();
-
-    allPost.sort((a, b) => {
-      return b.createdAt - a.createdAt;
-    });
+    const allPost = await this.postRepository.findAllPost() 
 
     return allPost.map((post) => {
       return {
