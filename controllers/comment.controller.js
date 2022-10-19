@@ -1,4 +1,6 @@
 const CommentService = require("../services/comment.services");
+const Joi = require('joi');
+const re_comment = /^[\s\S]{1,100}$/
 
 class CommentController {
   commentService = new CommentService();
@@ -12,7 +14,11 @@ class CommentController {
 
   // 댓글 생성 "요청"
   createComment = async (req, res, next) => {
-    const { comment } = req.body;
+
+    const commentSchema = Joi.object({
+      comment: Joi.string().pattern(re_comment).required(),
+    });
+    const { comment } = await commentSchema.validateAsync(req.body);
     const { postId } = req.params;
     const { userId, nickname } = res.locals.user;
 
@@ -23,6 +29,8 @@ class CommentController {
       nickname
     );
     res.status(201).json({ data: createCommentData });
+
+    
   };
 
   // 댓글 수정 "요청"

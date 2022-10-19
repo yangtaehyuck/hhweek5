@@ -1,4 +1,7 @@
 const PostService = require("../services/post.services");
+const Joi = require('joi');
+const re_title = /^[a-zA-Z0-9\s\S]{1,40}$/;
+const re_content = /^[\s\S]{1,3000}$/;
 
 class PostsController {
   postService = new PostService();
@@ -20,7 +23,12 @@ class PostsController {
 
   //게시글 작성
   createPost = async (req, res, next) => {
-    const { title, content } = req.body;
+    const postSchema = Joi.object({
+      title: Joi.string().pattern(re_title).required(),
+      content: Joi.string().pattern(re_content).required(),
+    });
+    const { title, content } = await postSchema.validateAsync(req.body);
+
     const { userId, nickname, likes } = res.locals.user;
     const createPostData = await this.postService.createPost(
       userId,

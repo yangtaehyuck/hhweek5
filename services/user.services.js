@@ -1,24 +1,34 @@
 const UserRepository = require('../repositories/user.repository');
 const jwt = require("jsonwebtoken");
+const crypto = require('crypto')
+require('dotenv').config();
+const regExp = /^(?=.*[a-zA-Z])[-a-zA-Z0-9_.]{3,20}$/;
+
 
 class UserService {
   userRepository = new UserRepository();
 
   loginUser = async (nickname, password) => {
-    const loginuser = await this.userRepository.loginUser(nickname, password);
-    console.log(loginuser[0].dataValues.userId)
-    if (nickname !== loginuser[0].dataValues.nickname || password !== loginuser[0].dataValues.password) {
+    
+    const findUserData = await this.userRepository.findsignupUser(nickname);
+    const salt = findUserData[0].dataValues.salt
+    const Password = findUserData[0].dataValues.password
+    const PassWord = crypto.pbkdf2Sync(password, salt, 1, 32, 'sha512').toString('base64')
+    if (nickname !== findUserData[0].dataValues.nickname || Password !== PassWord) {
       return "닉네임 또는 패스워드가 틀렸습니다."
     } else {
-      return {
-        token: jwt.sign({ userId:loginuser[0].dataValues.userId }, "my-secret-key")   
+
+        const token = jwt.sign({  userId:findUserData[0].dataValues.userId }, 'process.env.SECRET_KEY', {
+          expiresIn: '1000000s',
+        });
+        return token
     }
   };
-}
 
   signupUser = async (nickname, password, confirm) => {
+    
     const findUserData = await this.userRepository.findsignupUser(nickname, password);
-    let regExp = /^(?=.*[a-zA-Z])[-a-zA-Z0-9_.]{3,20}$/;
+    
     if (!regExp.test(nickname)) {
       return "닉네임은 최소 3자 이상이고 특수문자를 포함하지 않아야 합니다."
     }
@@ -31,8 +41,10 @@ class UserService {
     else if ( findUserData[0] !== undefined ) {
       return "닉네임이 이미 사용중입니다."
     } else {
-      const signupUserData = await this.userRepository.signupUser(nickname, password);
-  
+      const salt = crypto.randomBytes(32).toString('base64')
+      const Password = crypto.pbkdf2Sync(password, salt, 1, 32, 'sha512').toString('base64')
+      await this.userRepository.signupUser( nickname, Password, salt);
+
       return "회원 가입에 성공하였습니다."
     }
   };
