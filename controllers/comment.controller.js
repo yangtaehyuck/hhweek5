@@ -51,7 +51,7 @@ class CommentController {
       commentId,
       userId
     );
-    res.status(201).json({ message: deleteCommentDate });
+    res.status(200).json({ message: deleteCommentDate });
   };
 }
 

@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "coverage": "jest --coverage"
   },
   "author": "",
   "license": "ISC",
@@ -18,16 +19,20 @@
     "sequelize": "^6.24.0"
   },
   "devDependencies": {
-    "sequelize-cli": "^6.5.1"
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "jest": "^29.2.0",
+    "sequelize-cli": "^6.5.1",
+    "supertest": "^6.3.0"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yangtaehyuck/nodejs-homework00.git"
+    "url": "git+https://github.com/yangtaehyuck/hhweek5.git"
   },
   "keywords": [],
   "bugs": {
-    "url": "https://github.com/yangtaehyuck/nodejs-homework00/issues"
+    "url": "https://github.com/yangtaehyuck/hhweek5.git/issues"
   },
-  "homepage": "https://github.com/yangtaehyuck/nodejs-homework00#readme",
+  "homepage": "https://github.com/yangtaehyuck/hhweek5.git#readme",
   "description": ""
 }

@@ -1,14 +1,10 @@
 const express = require("express");
-const {posts} = require("./models");
-const {comments} = require("./models");
 const authMiddleware = require("./middlewares/auth-middleware");
 const app = express();
 const userrouter = require("./routes/user.routes")
 const likesrouter = require("./routes/likes.routes")
 const postrouter = require("./routes/post.routes")
 const commentrouter = require("./routes/comment.routes")
-const { Op } = require("sequelize");
-const {likes} = require("./models");
 const router = express.Router();
 
 app.use(express.json())

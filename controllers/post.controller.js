@@ -30,7 +30,7 @@ class PostsController {
       likes
     );
 
-    res.status(201).json({ data: createPostData });
+    res.status(200).json({ data: createPostData });
   };
 
   //게시글 수정

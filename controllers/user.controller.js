@@ -9,14 +9,14 @@ class UserController {
 
     const loginuser = await this.userService.loginUser(nickname, password)
 
-    res.status(201).json({"message":loginuser});
+    res.status(200).json({"message":loginuser});
   } 
   signupUser = async (req, res, next) => {
     const { nickname, password, confirm } = req.body;
 
     const signuser = await this.userService.signupUser(nickname, password, confirm);
 
-    res.status(201).json({"message":signuser});
+    res.status(200).json({"message":signuser});
 }
 
 }
