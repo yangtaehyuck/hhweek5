@@ -37,6 +37,7 @@ class CommentService {
   //댓글 수정
   updateCmt = async (comment, commentId, userId) => {
     const FindCmt = await this.commentRepository.findCmtById(commentId)
+    
     if (userId === FindCmt.user) {
       await this.commentRepository.updateCmt(comment, commentId, userId)
       return "댓글을 수정하였습니다."
@@ -45,16 +46,12 @@ class CommentService {
   
   // 댓글 삭제
   deleteCmt = async (commentId, userId) => {
-    const deleteCommentData = await this.commentRepository.deleteCmt(
-      commentId,
-      userId
-    );
-
-    if (deleteCommentData === "mismatch") {
-      return "삭제 권한이 없습니다.";
-    } else {
-      return "댓글을 삭제하였습니다.";
-    }
+    const FindCmt = await this.commentRepository.findCmtById(commentId)
+    
+    if (userId === FindCmt.user) {
+      await this.commentRepository.deleteCmt(commentId, userId)
+      return "댓글을 삭제하였습니다."
+    } else { return "삭제 권한이 없습니다" };
   };
 }
 

@@ -7,9 +7,9 @@ class UserRepository {
     return loginuser;
   };
 
-  signupUser = async (nickname, password) => {
-    const signupUserData = await users.create( { nickname, password } );
-
+  signupUser = async (nickname, Password, salt) => {
+    console.log(nickname, Password, salt)
+    const signupUserData = await users.create( { nickname, password: Password, salt } );
 
     return signupUserData;
   };

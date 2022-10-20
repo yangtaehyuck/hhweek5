@@ -16,7 +16,7 @@ class LikesController {
     const { youlikes } = req.body
     const { userId } = res.locals.user
     const updatelikes = await this.likesService.updateLikes(postId, youlikes, userId);
-    res.send({ result: updatelikes })
+    res.status(200).json({ result: updatelikes });
   };
 
 }
