@@ -56,8 +56,7 @@ class PostService {
 
     if (userId === FinduserId[0].dataValues.userId) {
     await this.postRepository.updatePost(postId, title, content);
-    const updatePost = await this.postRepository.findPostById(postId);
-    //console.log(updatePost.postId)
+    const updatePost = await this.postRepository.findPostById(postId);   //console.log(updatePost.postId)
       return "게시글을 수정하였습니다."
     }else {
       return "게시글 작성자의 userId와 다릅니다."
