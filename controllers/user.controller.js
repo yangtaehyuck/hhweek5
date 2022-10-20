@@ -7,6 +7,7 @@ const loginSchema = Joi.object({
   nickname: Joi.string().required(),
   password: Joi.string().required(),
 });
+
 const signupSchema = Joi.object({
   nickname: Joi.string().pattern(re_nickname).required(),
   password: Joi.string().pattern(re_password).required(),
